@@ -10,10 +10,11 @@ import numpy as np
 
 PROJECT = "71149810252"
 LOCATION = "us-west1"
+ENDPOINT_NAME = "5253765624676483072"
 
 def init_endpoint(endpoint_name):
     aiplatform.init(project=PROJECT, location=LOCATION) # , 
-    endpoint = aiplatform.Endpoint(endpoint_name="5253765624676483072")
+    endpoint = aiplatform.Endpoint(endpoint_name)
     return endpoint
 
 def predict(endpoint, payload):
@@ -31,12 +32,12 @@ batch = st.file_uploader("CSV Batch upload", type=["csv"])
 if batch:
     payload = pd.read_csv(batch)
     st.table(payload)
-    # mock payload
-    # payload = [
-    #     [1.00, 3.00, 1864.28, 21249.00, 19384.72, 0, 0, 0],
-    #     [1.00, 3.00, 9964.28, 21249.00, 19384.72, 0, 0, 0]
-    # ]
+else:
+    payload = [
+        [1.00, 3.00, 1864.28, 21249.00, 19384.72, 0, 0],
+        [1.00, 3.00, 9964.28, 21249.00, 19384.72, 0, 0]
+    ]
 
-endpoint = init_endpoint(ENDPOINT_NAME)
+endpoint = init_endpoint()
 
 clicked = st.button("Send for analysis", on_click=lambda: predict(endpoint, payload))
