@@ -38,12 +38,7 @@ if batch:
     print(payload.shape)
     st.table(payload)
     payload = payload.to_numpy().tolist()
-    # mock payload
-    # payload = [
-    #     [1.00, 3.00, 1864.28, 21249.00, 19384.72, 0, 0, 0],
-    #     [1.00, 3.00, 9964.28, 21249.00, 19384.72, 0, 0, 0]
-    # ]
 
-endpoint = init_endpoint(ENDPOINT_NAME)
+endpoint = init_endpoint()
 
 clicked = st.button("Send for analysis", on_click=lambda: predict(endpoint, payload))
